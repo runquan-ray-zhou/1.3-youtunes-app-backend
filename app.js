@@ -9,10 +9,14 @@ const app = express();
 app.use(cors()) // cors package allow any client or web browser to make request to this server app
 app.use(express.json()) // json middleware function allows the server app to parse incoming request data
 
+const artistsController = require("./controllers/artistsController.js");
+
 // health check route
 app.get("/", (req, res) => {
     res.status(200).send("Welcome to the Youtunes App Backend")
 })
+
+app.use("/artists", artistsController);
 
 // error route
 app.get("*", (req, res) => {
