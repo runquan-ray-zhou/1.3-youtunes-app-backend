@@ -28,7 +28,7 @@ CREATE TABLE playlists (
     description TEXT,
     img_url TEXT,
     genre TEXT,
-    is_private BOOLEAN,
+    is_private BOOLEAN
 );
 
 CREATE TABLE songs (
@@ -40,7 +40,7 @@ CREATE TABLE songs (
     img_url TEXT NOT NUll,
     vid_url TEXT NOT NUll,
     is_favorite BOOLEAN,
-    artist_id INTEGER REFERENCES artists (id)
+    artist_id INTEGER REFERENCES artists (id),
     album_id INTEGER REFERENCES albums (id)
 );
 
