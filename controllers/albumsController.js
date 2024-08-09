@@ -1,8 +1,10 @@
+// Dependencies
 const express = require("express");
 const albums = express.Router();
 const songsController = require("./songsController.js");
 albums.use("/:album_id/songs", songsController);
 
+// Queries
 const {
   getAllAlbums,
   getAlbum,

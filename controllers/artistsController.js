@@ -1,13 +1,13 @@
+// Dependencies
 const express = require("express");
 const artists = express.Router();
-// const songsController = require("./songsController.js");
-// artists.use("/:artist_id/songs", songsController);
 
 //artist = users
 //playlists = bookmarks
 //albums = bookmarks
 //songs = reviews
 
+// Queries
 const {
     getAllArtists,
     getArtist,
