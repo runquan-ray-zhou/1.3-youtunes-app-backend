@@ -42,7 +42,7 @@ const deleteArtist = async ( id ) => {
 const updateArtist = async ( id, artist ) => {
   try {
     const updatedArtist = await db.oneOrNone(
-      "UPDATE bookmarks SET name=$1, website_url=$2, img_url=$3, main_genre=$4, is_favorite=$5 where id=$6 RETURNING *",
+      "UPDATE artists SET name=$1, website_url=$2, img_url=$3, main_genre=$4, is_favorite=$5 where id=$6 RETURNING *",
       [artist.name, artist.website_url, artist.img_url, artist.main_genre, artist.is_favorite, id]
     );
     return updatedArtist;

@@ -3,6 +3,11 @@ const artists = express.Router();
 // const songsController = require("./songsController.js");
 // artists.use("/:artist_id/songs", songsController);
 
+//artist = users
+//playlists = bookmarks
+//albums = bookmarks
+//songs = reviews
+
 const {
     getAllArtists,
     getArtist,
@@ -11,7 +16,7 @@ const {
     updateArtist,
 } = require("../queries/artists");
 
-// INDEX
+// INDEX all artists
 artists.get("/", async (req, res) => {
   const allArtists = await getAllArtists();
   if (allArtists[0]) {
@@ -21,7 +26,7 @@ artists.get("/", async (req, res) => {
   }
 });
 
-// SHOW
+// SHOW single artist
 artists.get("/:id", async (req, res) => {
   const { id } = req.params;
   const artist = await getArtist(id);
@@ -32,7 +37,7 @@ artists.get("/:id", async (req, res) => {
   }
 });
 
-// CREATE
+// CREATE single artist
 artists.post("/", async (req, res) => {
   try {
     const artist = await createArtist(req.body);
@@ -42,7 +47,7 @@ artists.post("/", async (req, res) => {
   }
 });
 
-// DELETE
+// DELETE single artist
 artists.delete("/:id", async (req, res) => {
   const { id } = req.params;
   const deletedArtist = await deleteArtist(id);
@@ -53,7 +58,7 @@ artists.delete("/:id", async (req, res) => {
   }
 });
 
-// UPDATE
+// UPDATE single artist
 artists.put(
   "/:id",
   async (req, res) => {
