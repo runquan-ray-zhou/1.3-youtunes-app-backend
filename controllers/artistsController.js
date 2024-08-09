@@ -16,7 +16,7 @@ const {
     updateArtist,
 } = require("../queries/artists");
 
-// INDEX all artists
+// INDEX a list of all artists
 artists.get("/", async (req, res) => {
   const allArtists = await getAllArtists();
   if (allArtists[0]) {
@@ -26,7 +26,7 @@ artists.get("/", async (req, res) => {
   }
 });
 
-// SHOW single artist
+// SHOW a single artist
 artists.get("/:id", async (req, res) => {
   const { id } = req.params;
   const artist = await getArtist(id);
@@ -37,7 +37,7 @@ artists.get("/:id", async (req, res) => {
   }
 });
 
-// CREATE single artist
+// CREATE a single artist
 artists.post("/", async (req, res) => {
   try {
     const artist = await createArtist(req.body);
@@ -47,7 +47,7 @@ artists.post("/", async (req, res) => {
   }
 });
 
-// DELETE single artist
+// DELETE a single artist
 artists.delete("/:id", async (req, res) => {
   const { id } = req.params;
   const deletedArtist = await deleteArtist(id);
@@ -58,7 +58,7 @@ artists.delete("/:id", async (req, res) => {
   }
 });
 
-// UPDATE single artist
+// UPDATE a single artist
 artists.put(
   "/:id",
   async (req, res) => {

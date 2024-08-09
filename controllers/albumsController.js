@@ -11,7 +11,7 @@ const {
   updateAlbum,
 } = require("../queries/albums");
 
-// INDEX
+// INDEX a list of all albums
 albums.get("/", async (req, res) => {
   const allAlbums = await getAllAlbums();
   if (allAlbums[0]) {
@@ -21,7 +21,7 @@ albums.get("/", async (req, res) => {
   }
 });
 
-// SHOW
+// SHOW a single album
 albums.get("/:id", async (req, res) => {
   const { id } = req.params;
   const album = await getAlbum(id);
@@ -32,7 +32,7 @@ albums.get("/:id", async (req, res) => {
   }
 });
 
-// CREATE
+// CREATE a single album
 albums.post("/", async (req, res) => {
   try {
     const album = await createAlbum(req.body);
@@ -42,7 +42,7 @@ albums.post("/", async (req, res) => {
   }
 });
 
-// DELETE
+// DELETE a single album
 albums.delete("/:id", async (req, res) => {
   const { id } = req.params;
   const deletedAlbum = await deleteAlbum(id);
@@ -53,7 +53,7 @@ albums.delete("/:id", async (req, res) => {
   }
 });
 
-// UPDATE
+// UPDATE a single album
 albums.put("/:id", async (req, res) => {
     const { id } = req.params;
     const updatedAlbum = await updateAlbum(id, req.body);
