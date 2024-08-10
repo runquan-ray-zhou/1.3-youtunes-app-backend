@@ -25,11 +25,11 @@ const getSong = async (albumId, id) => {
 };
 
 const newSong = async (song) => {
-    const { name, artist, album, time, img_url, vid_url, is_favorite, artist_id, album_id } = song
+    const { song_name, song_artist, album, time, img_url, song_vid_url, is_favorite, artist_id, album_id } = song
   try {
     const newSong = await db.one(
-      "INSERT INTO songs (name, artist, album, time, img_url, vid_url, is_favorite, artist_id, album_id) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *",
-      [ name, artist, album, time, img_url, vid_url, is_favorite, artist_id, album_id ]
+      "INSERT INTO songs (song_name, song_artist, album, time, img_url, song_vid_url, is_favorite, artist_id, album_id) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *",
+      [ song_name, song_artist, album, time, img_url, song_vid_url, is_favorite, artist_id, album_id ]
     );
     return newSong;
   } catch (error) {
@@ -50,11 +50,11 @@ const deleteSong = async (id) => {
 };
 
 const updateSong = async (song) => {
-    const { name, artist, album, time, img_url, vid_url, is_favorite, artist_id, album_id, id } = song
+    const { song_name, song_artist, album, time, img_url, song_vid_url, is_favorite, artist_id, album_id, id } = song
     try {
         const updatedSong = await db.one(
-          "UPDATE songs SET name=$1, artist=$2, album=$3, time=$4, img_url=$5, vid_url=$6, is_favorite=$7, artist_id=$8, album_id=$9 where id=$10 RETURNING *",
-          [ name, artist, album, time, img_url, vid_url, is_favorite, artist_id, album_id, id ]
+          "UPDATE songs SET song_name=$1, song_artist=$2, album=$3, time=$4, img_url=$5, song_vid_url=$6, is_favorite=$7, artist_id=$8, album_id=$9 where id=$10 RETURNING *",
+          [ song_name, song_artist, album, time, img_url, song_vid_url, is_favorite, artist_id, album_id, id ]
         );
         return updatedSong;
       } catch (error) {
