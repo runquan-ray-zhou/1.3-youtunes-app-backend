@@ -18,10 +18,11 @@ const getArtist = async ( id ) => {
 };
 
 const createArtist = async ( artist ) => {
+  const { name, website_url, img_url, main_genre, is_favorite } = artist
   try {
     const newArtist = await db.oneOrNone(
       "INSERT INTO artists (name, website_url, img_url, main_genre, is_favorite) VALUES ($1, $2, $3, $4, $5) RETURNING *",
-      [artist.name, artist.website_url, artist.main_genre, artist.is_favorite]
+      [ name, website_url, img_url, main_genre, is_favorite ]
     );
     return newArtist;
   } catch (error) {
@@ -40,10 +41,11 @@ const deleteArtist = async ( id ) => {
 };
 
 const updateArtist = async ( id, artist ) => {
+  const { name, website_url, img_url, main_genre, is_favorite } = artist 
   try {
     const updatedArtist = await db.oneOrNone(
       "UPDATE artists SET name=$1, website_url=$2, img_url=$3, main_genre=$4, is_favorite=$5 where id=$6 RETURNING *",
-      [artist.name, artist.website_url, artist.img_url, artist.main_genre, artist.is_favorite, id]
+      [ name, website_url, img_url, main_genre, is_favorite, id ]
     );
     return updatedArtist;
   } catch (error) {

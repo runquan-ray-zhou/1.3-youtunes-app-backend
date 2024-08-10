@@ -59,9 +59,7 @@ artists.delete("/:id", async (req, res) => {
 });
 
 // UPDATE a single artist
-artists.put(
-  "/:id",
-  async (req, res) => {
+artists.put("/:id", async (req, res) => {
     const { id } = req.params;
     const updatedArtist = await updateArtist(id, req.body);
     res.status(200).json(updatedArtist);

@@ -48,7 +48,7 @@ const updateAlbum = async (id, album) => {
   try {
     const updatedAlbum = await db.one(
       "UPDATE albums SET name=$1, img_url=$2, is_favorite=$3, artist=$4, artist_id=$5 where id=$6 RETURNING *",
-      [name, img_url, is_favorite, artist, artist_id, id]
+      [ name, img_url, is_favorite, artist, artist_id, id ]
     );
     return updatedAlbum;
   } catch (error) {
