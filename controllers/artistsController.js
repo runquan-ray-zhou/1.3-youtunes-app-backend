@@ -14,6 +14,10 @@ const {
     createArtist,
     deleteArtist,
     updateArtist,
+    getAllAlbumsForArtist,
+    addNewAlbumToArtist,
+    deleteAlbumFromArtist,
+    getArtistSongs
 } = require("../queries/artists");
 
 // INDEX a list of all artists
@@ -24,6 +28,20 @@ artists.get("/", async (req, res) => {
   } else {
     res.status(500).json({ error: "server error" });
   }
+});
+
+// INDEX a list of all albums for one artist
+artists.get("/:artistId/albums", async (req, res) => {
+  const { artistId } = req.params;
+  const artistAlbums = await getAllAlbumsForArtist(artistId);
+  res.json(artistAlbums);
+});
+
+// INDEX a list of an artist's songs
+artists.get("/:artistId/songs", async (req, res) => {
+  const { artistId } = req.params;
+  const artistSongs = await getArtistSongs(artistId);
+  res.json(artistSongs);
 });
 
 // SHOW a single artist
@@ -47,6 +65,18 @@ artists.post("/", async (req, res) => {
   }
 });
 
+// CREATE/ADD an album to a artist's album list
+// Note: You need to add album to database first before you can add album to artist
+artists.post("/:artistId/albums/:albumId", async (req, res) => {
+  const { artistId, albumId } = req.params;
+  const successfulAdd = await addNewAlbumToArtist(artistId, albumId);
+  if (successfulAdd) {
+    res.status(201).json({ message: "ok" });
+  } else {
+    res.status(400).json({ info: successfulAdd });
+  }
+});
+
 // DELETE a single artist
 artists.delete("/:id", async (req, res) => {
   const { id } = req.params;
@@ -55,6 +85,17 @@ artists.delete("/:id", async (req, res) => {
     res.status(200).json(deletedArtist);
   } else {
     res.status(404).json("Artist not found");
+  }
+});
+
+// DELETE from a artist's album list
+artists.delete("/:artistId/albums/:bookmarkId", async (req, res) => {
+  const { artistId, albumId } = req.params;
+  const successfulDelete = await deleteAlbumFromArtist(artistId, albumId);
+  if (successfulDelete) {
+    res.status(202).json({ message: "ok" });
+  } else {
+    res.status(400).json({ info: successfulDelete });
   }
 });
 
