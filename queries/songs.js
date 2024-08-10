@@ -16,7 +16,7 @@ const getSong = async (albumId, id) => {
   try {
     const oneSong = await db.oneOrNone(
       "SELECT * FROM songs WHERE id=$1 AND album_id=$2",
-     [albumId, id]
+     [id, albumId]
     );
     return oneSong;
   } catch (error) {
