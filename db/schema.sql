@@ -44,3 +44,11 @@ CREATE TABLE songs (
     album_id INTEGER REFERENCES albums (id)
 );
 
+CREATE TABLE artists_albums (
+ id SERIAL PRIMARY KEY,
+ created TIMESTAMP DEFAULT NOW(),
+ album_id INTEGER,
+ artist_id INTEGER,
+ UNIQUE (album_id, artist_id)
+);
+
