@@ -104,41 +104,71 @@ const deleteAlbumFromArtist = async (artistId, albumId) => {
   }
 };
 
+// const getArtistSongs = async (id) => {
+//   try {
+//   const artist = await db.one("SELECT * FROM artists WHERE id=$1", id);
+//   const songs = await db.any(
+//     "SELECT * FROM songs WHERE song_artist=$1",
+//     artist.artist_name
+//   );
+//   const album = await db.any(
+//     `
+// SELECT
+// album_name, album_img_url, albums.id
+// FROM
+// songs
+// JOIN
+// albums
+// ON
+// albums.id = songs.album_id
+// JOIN
+// artists
+// ON
+// songs.song_artist = artists.artist_name
+// WHERE
+// artists.id=$1
+// `,
+//     id
+//   );
+
+//   const data = {
+//     artist,
+//     album,
+//     songs,
+//   };
+//   return data;
+//   } catch (error) {
+//     console.log(error)
+//     return error;
+//   }
+// };
+
 const getArtistSongs = async (id) => {
   try {
-  const artist = await db.one("SELECT * FROM artists WHERE id=$1", id);
-  const songs = await db.any(
-    "SELECT * FROM songs WHERE song_artist=$1",
-    artist.artist_name
-  );
-  const album = await db.any(
-    `
+    const artist = await db.one("SELECT * FROM artists WHERE id=$1", id);
+    const songs = await db.any(
+      "SELECT * FROM songs WHERE artist_id=$1",
+      id
+    );
+    const album = await db.oneOrNone(
+      `
 SELECT
 album_name, album_img_url, albums.id
 FROM
-songs
-JOIN
 albums
-ON
-albums.id = songs.album_id
 JOIN
 artists
 ON
-songs.song_artist = artists.artist_name
+albums.album_artist = artists.artist_name
 WHERE
 artists.id=$1
+LIMIT 1
 `,
-    id
-  );
-
-  const data = {
-    artist,
-    album,
-    songs,
-  };
-  return data;
+      id
+    );
+    
+    return { artist, album, songs };
   } catch (error) {
-    console.log(error)
     return error;
   }
 };

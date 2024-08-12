@@ -2,11 +2,6 @@
 const express = require("express");
 const artists = express.Router();
 
-//artist = users
-//playlists = bookmarks
-//albums = bookmarks
-//songs = reviews
-
 // Queries
 const {
     getAllArtists,
