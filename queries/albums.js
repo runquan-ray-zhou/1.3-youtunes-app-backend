@@ -19,11 +19,11 @@ const getAlbum = async (id) => {
 
 // CREATE
 const createAlbum = async (album) => {
-    const { album_name, album_img_url, is_favorite, album_artist, artist_id } = album
+    const { album_name, album_img_url, is_favorite, album_artist } = album
   try {
     const newAlbum = await db.one(
-      "INSERT INTO albums (album_name, album_img_url, is_favorite, album_artist, artist_id) VALUES($1, $2, $3, $4, $5) RETURNING *",
-      [ album_name, album_img_url, is_favorite, album_artist, artist_id ]
+      "INSERT INTO albums (album_name, album_img_url, is_favorite, album_artist) VALUES($1, $2, $3, $4) RETURNING *",
+      [ album_name, album_img_url, is_favorite, album_artist ]
     );
     return newAlbum;
   } catch (error) {

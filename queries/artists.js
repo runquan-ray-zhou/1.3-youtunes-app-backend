@@ -143,6 +143,7 @@ const deleteAlbumFromArtist = async (artistId, albumId) => {
 //   }
 // };
 
+// Following function created by CODY.
 const getArtistSongs = async (id) => {
   try {
     const artist = await db.one("SELECT * FROM artists WHERE id=$1", id);
@@ -150,7 +151,7 @@ const getArtistSongs = async (id) => {
       "SELECT * FROM songs WHERE artist_id=$1",
       id
     );
-    const album = await db.oneOrNone(
+    const album = await db.any(
       `
 SELECT
 album_name, album_img_url, albums.id
@@ -162,7 +163,6 @@ ON
 albums.album_artist = artists.artist_name
 WHERE
 artists.id=$1
-LIMIT 1
 `,
       id
     );
