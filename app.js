@@ -26,6 +26,20 @@ app.get("/allsongs", async (req, res) => {
     }
 })
 
+// Add song to database route
+app.post("/addsong", async (req, res) => {
+    const { song_name, song_artist, album, time, img_url, song_vid_url, is_favorite, artist_id, album_id } = req.body
+    try {
+        const newSong = await db.one(
+            "INSERT INTO songs (song_name, song_artist, album, time, img_url, song_vid_url, is_favorite, artist_id, album_id) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *",
+            [ song_name, song_artist, album, time, img_url, song_vid_url, is_favorite, artist_id, album_id ]
+          );
+        res.status(200).json(newSong);
+    } catch (error) {
+        res.status(500).json({error: error.message})
+    }
+})
+
 const albumsController = require("./controllers/albumsController.js");
 app.use("/albums", albumsController);
 
